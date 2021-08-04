@@ -1,0 +1,17 @@
+Arpeggio==1.10.2
+attrs==21.2.0
+certifi==2021.5.30
+charset-normalizer==2.0.4
+dill==0.3.4
+grpcio==1.39.0
+idna==3.2
+-e git+ssh://git@github.com/jaxxstorm/pulumi-productionapp.git@928c4025881bac34fb434a878453f8dca524a72f#egg=jaxxstorm_pulumi_productionapp&subdirectory=sdk/python/bin
+parver==0.3.1
+protobuf==3.17.3
+pulumi==3.9.1
+pulumi-kubernetes==3.5.1
+PyYAML==5.4.1
+requests==2.26.0
+semver==2.13.0
+six==1.16.0
+urllib3==1.26.6
