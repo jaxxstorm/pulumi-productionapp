@@ -123,6 +123,7 @@ func NewProductionApp(ctx *pulumi.Context,
 	url := service.Status.ApplyT(func(status *corev1.ServiceStatus) string {
 		ingress := status.LoadBalancer.Ingress[0]
 		if ingress.Ip != nil {
+			ctx.Log.
 			return fmt.Sprintf("http://%s", *ingress.Ip)
 		} else if ingress.Hostname != nil {
 			return fmt.Sprintf("http://%s", *ingress.Hostname)

@@ -72,15 +72,15 @@ var (
 // pulumiProgram is the Pulumi program itself where resources are declared. It deploys a simple static website to S3.
 func pulumiProgram(ctx *pulumi.Context) error {
 
-	_, err := productionapp.NewDeployment(ctx, "productionapp", &productionapp.DeploymentArgs{
+	application, err := productionapp.NewDeployment(ctx, "productionapp", &productionapp.DeploymentArgs{
 		Image: pulumi.String(*image),
 		Port:  pulumi.Int(*port),
 	})
 	if err != nil {
-		return err
+		return fmt.Errorf("error creating application: %v", err)
 	}
 
-	//ctx.Export("url", application.Url)
+	ctx.Export("url", application.Url)
 
 	return nil
 }
@@ -163,7 +163,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 		logChannel <- logMessage{msg: "Update succeeded!"}
 
 		// get the URL from the stack outputs
-		url, ok := res.Outputs["websiteUrl"].Value.(string)
+		url, ok := res.Outputs["url"].Value.(string)
 		if !ok {
 			fmt.Println("Failed to unmarshal output URL")
 			os.Exit(1)
