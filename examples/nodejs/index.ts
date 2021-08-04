@@ -6,4 +6,4 @@ const app = new prodapp.Deployment("example", {
     port: 80,
 })
 
-// export const url = app.url
+export const url = app.url

@@ -45,7 +45,6 @@ func NewProductionApp(ctx *pulumi.Context,
 
 	var err error
 	component := &ProductionApp{}
-	
 
 	err = ctx.RegisterComponentResource("productionapp:index:Deployment", name, component, opts...)
 	if err != nil {
@@ -121,18 +120,17 @@ func NewProductionApp(ctx *pulumi.Context,
 		return nil, fmt.Errorf("error creating service: %v", err)
 	}
 
-	// url := service.Status.ApplyT(func(status *corev1.ServiceStatus) string {
-	// 	ingress := status.LoadBalancer.Ingress[0]
-	// 	if ingress.Hostname != nil {
-	// 		return fmt.Sprintf("http://%s", *ingress.Hostname)
-	// 	} else {
-	// 		return "could not find ingress"
-	// 	}
-	// }).(pulumi.StringOutput)
+	url := service.Status.ApplyT(func(status *corev1.ServiceStatus) string {
+		ingress := status.LoadBalancer.Ingress[0]
+		if ingress.Ip != nil {
+			return fmt.Sprintf("http://%s", *ingress.Ip)
+		} else if ingress.Hostname != nil {
+			return fmt.Sprintf("http://%s", *ingress.Hostname)
+		} else {
+			return "could not find ingress"
+		}
+	}).(pulumi.StringOutput)
 
-	//url := service.Status.LoadBalancer().Ingress().Index(pulumi.Int(0)).Ip().Elem()
-	_ = service
-	url := pulumi.String("foo").ToStringOutput()
 	component.Url = url
 
 	if err := ctx.RegisterResourceOutputs(component, pulumi.Map{
