@@ -7,33 +7,27 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Productionapp
 {
-    [XyzResourceType("xyz:index:StaticPage")]
-    public partial class StaticPage : Pulumi.ComponentResource
+    [ProductionappResourceType("productionapp:index:Deployment")]
+    public partial class Deployment : Pulumi.ComponentResource
     {
         /// <summary>
-        /// The bucket resource.
+        /// The URL from the generated service
         /// </summary>
-        [Output("bucket")]
-        public Output<Pulumi.Aws.S3.Bucket> Bucket { get; private set; } = null!;
-
-        /// <summary>
-        /// The website URL.
-        /// </summary>
-        [Output("websiteUrl")]
-        public Output<string> WebsiteUrl { get; private set; } = null!;
+        [Output("url")]
+        public Output<string> Url { get; private set; } = null!;
 
 
         /// <summary>
-        /// Create a StaticPage resource with the given unique name, arguments, and options.
+        /// Create a Deployment resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public StaticPage(string name, StaticPageArgs args, ComponentResourceOptions? options = null)
-            : base("xyz:index:StaticPage", name, args ?? new StaticPageArgs(), MakeResourceOptions(options, ""), remote: true)
+        public Deployment(string name, DeploymentArgs args, ComponentResourceOptions? options = null)
+            : base("productionapp:index:Deployment", name, args ?? new DeploymentArgs(), MakeResourceOptions(options, ""), remote: true)
         {
         }
 
@@ -50,15 +44,21 @@ namespace Pulumi.Xyz
         }
     }
 
-    public sealed class StaticPageArgs : Pulumi.ResourceArgs
+    public sealed class DeploymentArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The HTML content for index.html.
+        /// The image to deploy in your production application
         /// </summary>
-        [Input("indexContent", required: true)]
-        public Input<string> IndexContent { get; set; } = null!;
+        [Input("image", required: true)]
+        public Input<string> Image { get; set; } = null!;
 
-        public StaticPageArgs()
+        /// <summary>
+        /// The port your container listens on
+        /// </summary>
+        [Input("port", required: true)]
+        public Input<int> Port { get; set; } = null!;
+
+        public DeploymentArgs()
         {
         }
     }

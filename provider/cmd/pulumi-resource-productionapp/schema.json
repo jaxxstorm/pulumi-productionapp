@@ -1,0 +1,59 @@
+{
+    "name": "productionapp",
+    "resources": {
+        "productionapp:index:Deployment": {
+            "isComponent": true,
+            "inputProperties": {
+                "image": {
+                    "type": "string",
+                    "description": "The image to deploy in your production application"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port your container listens on"
+                }
+            },
+            "requiredInputs": [
+                "port",
+                "image"
+            ],
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "description": "The URL from the generated service"
+                }
+            },
+            "required": [
+                "url"
+            ]
+        }
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*",
+                "Pulumi.Kubernetes": "3.*"
+            }
+        },
+        "go": {
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/jaxxstorm/pulumi-productionapp/sdk/go/productionapp"
+        },
+        "nodejs": {
+            "packageName": "@jaxxstorm/pulumi-productionapp",
+            "dependencies": {
+                "@pulumi/kubernetes": "^3.0.0"
+            },
+            "devDependencies": {
+                "typescript": "^3.7.0"
+            }
+        },
+        "python": {
+            "packageName": "jaxxstorm_pulumi_productionapp",
+            "requires": {
+                "pulumi": ">=3.0.0,<4.0.0",
+                "pulumi-kubernetes": ">=3.0.0,<4.0.0"
+            }
+        }
+    }
+}

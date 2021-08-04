@@ -1,11 +1,11 @@
 {
-    "name": "@pulumi/xyz",
+    "name": "@jaxxstorm/pulumi-productionapp",
     "version": "${VERSION}",
     "scripts": {
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/aws": "^4.0.0"
+        "@pulumi/kubernetes": "^3.0.0"
     },
     "devDependencies": {
         "typescript": "^3.7.0"
