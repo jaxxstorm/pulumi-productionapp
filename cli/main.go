@@ -26,10 +26,10 @@ const columnWidth = 50
 
 // Style definitions.
 var (
-	app     = kingpin.New("productionapp", "A command-line application deployment tool using pulumi.")
+	app        = kingpin.New("productionapp", "A command-line application deployment tool using pulumi.")
 	deployCmd  = app.Command("deploy", "Deploy a container image.")
 	destroyCmd = app.Command("destroy", "Destroy a deployment")
-	name    = app.Flag("name", "deploymentname").String()
+	name       = app.Flag("name", "Deployment name to use").String()
 
 	// kingpin vars
 	image = deployCmd.Flag("image", "Image to deploy.").Required().String()
@@ -109,8 +109,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 		// this will set up a workspace with everything necessary to run our inline program (deployFunc)
 		s, err := auto.UpsertStackInlineSource(ctx, stackName, projectName, pulumiProgram)
 		if err != nil {
-			fmt.Printf("Failed to get stack: %v\n", err)
-			os.Exit(1)
+			app.Fatalf("Failed to get stack: %v", err)
 		}
 
 		logChannel <- logMessage{msg: fmt.Sprintf("Created/Selected stack %q\n", stackName)}
@@ -122,8 +121,8 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 		// for inline source programs, we must manage plugins ourselves
 		err = w.InstallPlugin(ctx, "kubernetes", "v3.5.2")
 		if err != nil {
-			fmt.Printf("Failed to install program plugins: %v\n", err)
-			os.Exit(1)
+			app.Fatalf("Failed to install program plugins: %v\n", err)
+
 		}
 
 		logChannel <- logMessage{msg: "Successfully installed Kubernetes plugin"}
@@ -133,8 +132,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 
 		_, err = s.Refresh(ctx)
 		if err != nil {
-			fmt.Printf("Failed to refresh stack: %v\n", err)
-			os.Exit(1)
+			app.Fatalf("Failed to refresh stack: %v\n", err)
 		}
 
 		logChannel <- logMessage{msg: "Refresh succeeded!"}
@@ -156,8 +154,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 		// run the update to deploy our s3 website
 		res, err := s.Up(ctx, optup.EventStreams(eventChannel))
 		if err != nil {
-			fmt.Printf("Failed to update stack: %v\n\n", err)
-			os.Exit(1)
+			app.Fatalf("Failed to update stack: %v\n\n", err)
 		}
 
 		logChannel <- logMessage{msg: "Update succeeded!"}
@@ -292,15 +289,6 @@ func (m model) View() string {
 }
 
 func main() {
-	// to destroy our program, we can run `go run main.go destroy`
-	// destroy := false
-	// argsWithoutProg := os.Args[1:]
-	// if len(argsWithoutProg) > 0 {
-	// 	if argsWithoutProg[0] == "destroy" {
-	// 		destroy = true
-	// 	}
-	// }
-
 	kingpin.Version("0.0.1")
 
 	var destroy bool
@@ -313,8 +301,8 @@ func main() {
 	// Post message
 	case destroyCmd.FullCommand():
 		destroy = true
-		if name == nil {
-			panic("must specify a name for destroys")
+		if *name == "" {
+			app.FatalUsage("Must specify a name for destroys")
 		}
 	}
 
@@ -332,7 +320,6 @@ func main() {
 	})
 
 	if p.Start() != nil {
-		fmt.Println("could not start program")
-		os.Exit(1)
+		app.Fatalf("could not start program")
 	}
 }
