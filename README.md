@@ -27,7 +27,7 @@ View Live: https://app.pulumi.com/jaxxstorm/productionapp-node-example/dev/updat
 
 A custom CLI can also be built using Pulumi's Automation API. The automation API allows you to build custom tooling and workflows.
 
-The CLI is based on amazing work by [@komalali](github.com/komalali)
+The CLI is based on amazing work by [@komalali](https://github.com/komalali)
 
 The CLI lives in the [cli](cli) directory and is written using Go.
 
@@ -66,7 +66,7 @@ usage: productionapp [<flags>] <command> [<args> ...]
 
 ## Web Platform
 
-A web platform built using Python and flask is also available. Again, most of the UI and framework was built by [@komalali](github.com/komalali)
+A web platform built using Python and flask is also available. Again, most of the UI and framework was built by [@komalali](https://github.com/komalali)
 
 It lives in the [web](web) directory. 
 
