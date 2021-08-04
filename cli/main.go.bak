@@ -1,0 +1,37 @@
+package main
+
+import (
+	"fmt"
+
+	"context"
+	"gopkg.in/alecthomas/kingpin.v2"
+	"github.com/jaxxstorm/pulumi-productionapp/cli/pkg/namegenerator/"
+	"github.com/jaxxstorm/pulumi-productionapp/sdk/go/productionapp"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto"
+)
+
+var (
+	image = kingpin.Flag("image", "Image to deploy.").Required().String()
+	org = kingpin.Flag("org", "Pulumi organization to deploy to").Default("jaxxstorm").String()
+	port  = kingpin.Arg("port", "port container listens on").Default("80").Int()
+)
+
+func main() {
+	kingpin.Version("0.0.1")
+	kingpin.Parse()
+
+
+	ctx := context.Background()
+	name := namegenerator.GenerateName()
+
+	stackName := auto.FullyQualifiedStackName(*org, "productionappexample", name)
+	pulumiStack, err := auto.UpsertStackInlineSource(ctx, stackName, "productionappexample", nil)
+	if err != nil {
+		panic(err)
+	}
+
+	// Set up the workspace and install all the required plugins the user needs
+	workspace := pulumiStack.Workspace()
+
+
+}
