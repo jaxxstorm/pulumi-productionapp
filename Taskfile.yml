@@ -103,7 +103,7 @@ tasks:
         sh: pulumictl get version -r {{ .WORKING_DIR }} -p dotnet
     cmds:
       - echo "{{ .VERSION }}" >version.txt
-        # - dotnet build /p:Version={{ .VERSION }}
+      - dotnet build /p:Version={{ .VERSION }}
   
   build:go:
     desc: "Build Go SDK"
@@ -117,7 +117,7 @@ tasks:
       - task: build:python
       - task: build:nodejs
       - task: build:go
-      # - task: build:dotnet
+      - task: build:dotnet
 
   install:nodejs:
     desc: "Install the NodeJS SDK for local dev"
