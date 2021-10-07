@@ -23,20 +23,20 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// The set of arguments for creating a StaticPage component resource.
+// The set of arguments for creating a ProductionApp component resource.
 type ProductionAppArgs struct {
 	Image pulumi.StringInput `pulumi:"image"`
 	Port  pulumi.IntInput    `pulumi:"port"`
 }
 
-// The StaticPage component resource.
+// The ProductionApp component resource.
 type ProductionApp struct {
 	pulumi.ResourceState
 
 	Url pulumi.StringOutput `pulumi:"url"`
 }
 
-// NewStaticPage creates a new StaticPage component resource.
+// NewProductionPage creates a new ProductionApp component resource.
 func NewProductionApp(ctx *pulumi.Context,
 	name string, args *ProductionAppArgs, opts ...pulumi.ResourceOption) (*ProductionApp, error) {
 	if args == nil {
