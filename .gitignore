@@ -18,3 +18,4 @@ ci-scripts/
 
 /provider/cmd/pulumi-resource-*/schema.go
 bin/**
+**/.DS_Store
