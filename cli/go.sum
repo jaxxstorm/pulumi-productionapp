@@ -259,8 +259,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
-github.com/jaxxstorm/pulumi-productionapp v0.0.0-20210804141622-2e20269698e9 h1:Ovo/CVbP0eqrzxo59pN1VzFVsnqYzZ1JtYu8e2bqby8=
-github.com/jaxxstorm/pulumi-productionapp v0.0.0-20210804141622-2e20269698e9/go.mod h1:n0AiAfw8IKRpCIPWgrRtio5UnCPOiw3sH1yKiG1Hmzc=
+github.com/jaxxstorm/pulumi-productionapp v0.0.0-20211018184857-325e8e3adefb h1:vHuhKZrARVoIVZ93DRzgq8UZ4dxmXFEPP6POpqveWyo=
+github.com/jaxxstorm/pulumi-productionapp v0.0.0-20211018184857-325e8e3adefb/go.mod h1:n0AiAfw8IKRpCIPWgrRtio5UnCPOiw3sH1yKiG1Hmzc=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOlocH6Fxy8MmwDt+yVQYULKfN0RoTN8A=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod h1:1lJo3i6rXxKeerYnT8Nvf0QmHCRC1n8sfWVwXF2Frvo=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=

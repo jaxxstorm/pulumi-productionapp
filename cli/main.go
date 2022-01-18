@@ -6,6 +6,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+	neturl "net/url"
 
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
@@ -166,7 +167,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 		}
 
 		logChannel <- logMessage{msg: fmt.Sprintf("URL: %s\n", url)}
-		return logMessage{msg: "Success"}
+		return logMessage{msg: url}
 	}
 }
 
@@ -233,6 +234,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case logMessage:
 		if msg.msg == "Success" {
 			m.currentMessage = "Succeeded!"
+			return m, tea.Quit
+		}
+		if isUrl(msg.msg) {
+			m.currentMessage = fmt.Sprintf("Succeeded! %s", msg.msg)
 			return m, tea.Quit
 		}
 		m.currentMessage = msg.msg
@@ -318,9 +323,23 @@ func main() {
 		updatesComplete:   map[string]string{},
 	})
 
-	fmt.Printf("your application has been deployed to: %s", application.)
+	fmt.Printf("your application has been deployed!")
 
 	if p.Start() != nil {
 		app.Fatalf("could not start program")
 	}
+}
+
+func isUrl(url string) bool {
+	_, err := neturl.ParseRequestURI(url)
+	if err != nil {
+		return false
+	}
+
+	u, err := neturl.Parse(url)
+	if err != nil || u.Scheme == "" || u.Host == "" {
+		return false
+	}
+
+	return true
 }

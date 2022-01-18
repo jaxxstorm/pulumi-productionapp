@@ -59,9 +59,8 @@ func NewProductionApp(ctx *pulumi.Context,
 
 	formattedName := sanitize.Alpha(name, false)
 
-	namespace, err := corev1.NewNamespace(ctx, formattedName, &corev1.NamespaceArgs{
+	namespace, err := corev1.NewNamespace(ctx, name, &corev1.NamespaceArgs{
 		Metadata: &metav1.ObjectMetaArgs{
-			Name:   pulumi.String(name),
 			Labels: labels,
 		},
 	})
