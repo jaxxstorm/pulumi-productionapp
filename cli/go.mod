@@ -1,6 +1,6 @@
 module github.com/jaxxstorm/pulumi-productionapp/cli
 
-go 1.16
+go 1.17
 
 require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
@@ -19,7 +19,6 @@ require (
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/jaxxstorm/pulumi-productionapp v0.0.0-20210804141622-2e20269698e9
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/muesli/termenv v0.9.0 // indirect

@@ -48,6 +48,7 @@ setup(name='jaxxstorm_pulumi_productionapp',
       package_data={
           'jaxxstorm_pulumi_productionapp': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

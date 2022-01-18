@@ -128,11 +128,19 @@ tasks:
     desc: "Install the PyPi SDK for local dev"
     cmds:
       - pip3 install -e sdk/python/bin/
+
+  install:dotnet:
+    desc: "Install the Dotnet SDK for local dev"
+    cmds:
+      - mkdir -p {{ .WORKING_DIR }}/nuget
+      - find . -name '*.nupkg' -print -exec cp -p {} {{ .WORKING_DIR }}/nuget \;
   
   install:sdks:
     desc: "Install all SDKs for local dev"
     cmds:
       - task: install:nodejs
+      - task: install:python
+      - task: install:dotnet
 
 
 

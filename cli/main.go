@@ -92,7 +92,7 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 	return func() tea.Msg {
 		ctx := context.Background()
 
-		projectName := "productionapp"
+		projectName := "productionapp-cli"
 		// we use a simple stack name here, but recommend using auto.FullyQualifiedStackName for maximum specificity.
 
 		var nameToUse string
@@ -151,7 +151,6 @@ func runPulumiUpdate(destroy bool, logChannel chan<- logMessage, eventChannel ch
 
 		logChannel <- logMessage{msg: "Running update..."}
 
-		// run the update to deploy our s3 website
 		res, err := s.Up(ctx, optup.EventStreams(eventChannel))
 		if err != nil {
 			app.Fatalf("Failed to update stack: %v\n\n", err)
@@ -318,6 +317,8 @@ func main() {
 		updatesInProgress: map[string]string{},
 		updatesComplete:   map[string]string{},
 	})
+
+	fmt.Printf("your application has been deployed to: %s", application.)
 
 	if p.Start() != nil {
 		app.Fatalf("could not start program")

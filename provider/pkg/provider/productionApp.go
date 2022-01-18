@@ -21,6 +21,7 @@ import (
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/mrz1836/go-sanitize"
 )
 
 // The set of arguments for creating a ProductionApp component resource.
@@ -56,7 +57,9 @@ func NewProductionApp(ctx *pulumi.Context,
 		"app.production.instance/name": pulumi.String(name),
 	}
 
-	namespace, err := corev1.NewNamespace(ctx, name, &corev1.NamespaceArgs{
+	formattedName := sanitize.Alpha(name, false)
+
+	namespace, err := corev1.NewNamespace(ctx, formattedName, &corev1.NamespaceArgs{
 		Metadata: &metav1.ObjectMetaArgs{
 			Name:   pulumi.String(name),
 			Labels: labels,

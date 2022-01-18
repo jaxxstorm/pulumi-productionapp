@@ -32,7 +32,7 @@ export class Deployment extends pulumi.ComponentResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: DeploymentArgs, opts?: pulumi.ComponentResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.image === undefined) && !opts.urn) {
@@ -41,16 +41,14 @@ export class Deployment extends pulumi.ComponentResource {
             if ((!args || args.port === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'port'");
             }
-            inputs["image"] = args ? args.image : undefined;
-            inputs["port"] = args ? args.port : undefined;
-            inputs["url"] = undefined /*out*/;
+            resourceInputs["image"] = args ? args.image : undefined;
+            resourceInputs["port"] = args ? args.port : undefined;
+            resourceInputs["url"] = undefined /*out*/;
         } else {
-            inputs["url"] = undefined /*out*/;
+            resourceInputs["url"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(Deployment.__pulumiType, name, inputs, opts, true /*remote*/);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(Deployment.__pulumiType, name, resourceInputs, opts, true /*remote*/);
     }
 }
 
