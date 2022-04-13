@@ -2,7 +2,8 @@
     "name": "@jaxxstorm/pulumi-productionapp",
     "version": "${VERSION}",
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "install": "node scripts/install-pulumi-plugin.js resource productionapp ${VERSION}"
     },
     "dependencies": {
         "@pulumi/kubernetes": "^3.0.0"
