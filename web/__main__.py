@@ -96,4 +96,4 @@ def delete_deployment(id: str):
     return flask.redirect(flask.url_for("list_deployments"))
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="localhost", port=5050, debug=True)
