@@ -1,0 +1,4 @@
+name: pulumi-productionapp-java
+description: A production application with Java.
+runtime:
+  name: java

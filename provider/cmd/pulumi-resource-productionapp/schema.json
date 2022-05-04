@@ -35,6 +35,9 @@
                 "Pulumi.Kubernetes": "3.*"
             }
         },
+        "java": {
+            "buildFiles": "gradle"
+        },
         "go": {
             "generateResourceContainerTypes": true,
             "importBasePath": "github.com/jaxxstorm/pulumi-productionapp/sdk/go/productionapp"

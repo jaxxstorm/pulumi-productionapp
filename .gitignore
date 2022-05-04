@@ -21,3 +21,5 @@ bin/**
 **/.DS_Store
 **/.python-version
 **/__pycache__
+.gradle
+**/.gradle
