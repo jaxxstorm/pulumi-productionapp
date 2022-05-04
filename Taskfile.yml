@@ -20,6 +20,12 @@ tasks:
       - task: build:sdks
       - task: install:sdks
 
+  generate:java:
+    desc: "Generate Java SDK"
+    cmds:
+      - rm -rf sdk/java/{src,build}
+      - cd provider/cmd/{{ .CODEGEN }} && go run . java ../../../sdk/java {{ .SCHEMA_PATH }}
+
   generate:python:
     desc: "Generate python SDK"
     cmds:
@@ -48,6 +54,7 @@ tasks:
   generate:sdks:
     desc: "Generate all SDKs"
     cmds:
+      - task: generate:java
       - task: generate:python
       - task: generate:nodejs
       - task: generate:go
@@ -111,6 +118,12 @@ tasks:
     cmds:
       - task: generate:go
 
+  build:java:
+    desc: "Build Java SDK"
+    dir: sdk/java
+    cmds:
+      - gradle --console=plain build
+
   build:sdks:
     desc: "Build all SDKs"
     cmds:
@@ -118,6 +131,7 @@ tasks:
       - task: build:nodejs
       - task: build:go
       - task: build:dotnet
+      - task: build:java
 
   install:nodejs:
     desc: "Install the NodeJS SDK for local dev"
@@ -134,6 +148,12 @@ tasks:
     cmds:
       - mkdir -p {{ .WORKING_DIR }}/nuget
       - find . -name '*.nupkg' -print -exec cp -p {} {{ .WORKING_DIR }}/nuget \;
+
+  install:java:
+    desc: "Install the Java SDK for local dev"
+    dir: sdk/java
+    cmds:
+      - gradle --console=plain publishToMavenLocal
   
   install:sdks:
     desc: "Install all SDKs for local dev"
@@ -141,6 +161,7 @@ tasks:
       - task: install:nodejs
       - task: install:python
       - task: install:dotnet
+      - task: install:java
 
 
 
