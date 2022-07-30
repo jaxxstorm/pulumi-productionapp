@@ -5,7 +5,6 @@ charset-normalizer==2.0.4
 dill==0.3.4
 grpcio==1.39.0
 idna==3.2
--e git+ssh://git@github.com/jaxxstorm/pulumi-productionapp.git@928c4025881bac34fb434a878453f8dca524a72f#egg=jaxxstorm_pulumi_productionapp&subdirectory=sdk/python/bin
 parver==0.3.1
 protobuf==3.17.3
 pulumi==3.9.1

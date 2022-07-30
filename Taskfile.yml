@@ -54,7 +54,7 @@ tasks:
   generate:sdks:
     desc: "Generate all SDKs"
     cmds:
-      - task: generate:java
+      #- task: generate:java
       - task: generate:python
       - task: generate:nodejs
       - task: generate:go
@@ -131,7 +131,7 @@ tasks:
       - task: build:nodejs
       - task: build:go
       - task: build:dotnet
-      - task: build:java
+      # - task: build:java
 
   install:nodejs:
     desc: "Install the NodeJS SDK for local dev"
@@ -161,7 +161,7 @@ tasks:
       - task: install:nodejs
       - task: install:python
       - task: install:dotnet
-      - task: install:java
+      #- task: install:java
 
 
 

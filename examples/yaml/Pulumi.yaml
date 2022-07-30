@@ -1,11 +1,3 @@
 name: pulumi-productionapp-yaml
-runtime: yaml
+runtime: nodejs
 description: a kubernetes production app from yaml
-resources:
-  app:
-    type: productionapp:index:Deployment
-    properties:
-      image: "nginx"
-      port: 80
-outputs:
-  url: ${app.url}

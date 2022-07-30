@@ -2,3 +2,4 @@ go 1.18
 
 use ./provider
 use ./sdk
+use ./cli
