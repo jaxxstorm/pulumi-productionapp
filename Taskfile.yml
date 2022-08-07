@@ -19,6 +19,7 @@ tasks:
       - task: generate:sdks
       - task: build:sdks
       - task: install:sdks
+      - task: build:cli
 
   generate:java:
     desc: "Generate Java SDK"
@@ -123,6 +124,12 @@ tasks:
     dir: sdk/java
     cmds:
       - gradle --console=plain build
+  
+  build:cli:
+    desc: "Build CLI application"
+    dir: cli
+    cmds:
+      - go build -o prodapp .
 
   build:sdks:
     desc: "Build all SDKs"
