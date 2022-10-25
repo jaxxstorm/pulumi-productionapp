@@ -1,3 +1,11 @@
-name: pulumi-productionapp-yaml
-runtime: nodejs
-description: a kubernetes production app from yaml
+
+name: yaml_pulumi_productionapp
+runtime: yaml
+resources:
+  app:
+    type: productionapp:index:Deployment
+    properties:
+      port: 80
+      image: "gcr.io/kuar-demo/kuard-amd64:blue"     
+outputs:
+  url: ${app.url}
