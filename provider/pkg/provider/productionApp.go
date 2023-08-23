@@ -66,7 +66,7 @@ func NewProductionApp(ctx *pulumi.Context,
 		return nil, fmt.Errorf("error creating namespace: %v", err)
 	}
 
-	_, err = appsv1.NewDeployment(ctx, name, &appsv1.DeploymentArgs{
+	deployment, err := appsv1.NewDeployment(ctx, name, &appsv1.DeploymentArgs{
 		Metadata: &metav1.ObjectMetaArgs{
 			Namespace: namespace.Metadata.Name().Elem(),
 			Labels:    labels,
@@ -103,7 +103,7 @@ func NewProductionApp(ctx *pulumi.Context,
 	service, err := corev1.NewService(ctx, name, &corev1.ServiceArgs{
 		Metadata: &metav1.ObjectMetaArgs{
 			Namespace: namespace.Metadata.Name().Elem(),
-			Labels:    labels,
+			Labels:    deployment.Metadata.Labels(),
 		},
 		Spec: &corev1.ServiceSpecArgs{
 			Ports: &corev1.ServicePortArray{
@@ -113,7 +113,7 @@ func NewProductionApp(ctx *pulumi.Context,
 				},
 			},
 			Type:     pulumi.String("LoadBalancer"),
-			Selector: labels,
+			Selector: deployment.Metadata.Labels(),
 		},
 	}, pulumi.Parent(namespace))
 	if err != nil {
